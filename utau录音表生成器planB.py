@@ -154,12 +154,18 @@ def Reclist(data, length):
 
     start = '0'
     #只保证生成完整的VC
-    if start == 'test':
+    if start == '仅包含CV和VC':
         data.CVsta = []
         data.CVend = []
         data.CV = []
         # data.VC = []
         data.VV = []
+    elif start == 'test':
+        data.CVsta = []
+        data.CVend = []
+        data.CV = []
+        # data.VC = []
+        # data.VV = []
 
     print('VC列表：')
     while len(data.VC)+len(data.VV) !=0:
