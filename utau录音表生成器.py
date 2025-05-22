@@ -230,6 +230,7 @@ def Reclist(data, length):
         if len(row) < length-2:
             # print('过短')
             data.sum += 1
+
         #VV列表从这里开始生成
         while len(row) < length-2:
             for V in data.V_sum:
@@ -311,6 +312,7 @@ def Reclist(data, length):
                         phone_V = data.V2_dict[cv]
                         break
                 break
+
         if len(row) < length:
             # print('补充CVend')
             # 如果只差一个直接添加一个结尾音
@@ -371,6 +373,7 @@ def Reclist(data, length):
                 row.append('R')
             elif len(data.CV) == 0 and len(row) < length:
                 row.append('R')
+                # row.append('R')
         print(row)
         data.CV_add_reclist.append(row)
     print(len(data.CV_add_reclist), data.CV_add_reclist)
