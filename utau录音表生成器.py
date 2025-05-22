@@ -133,6 +133,8 @@ def Reclist(data, length):
             data.CV_reclist.append(row)
             row = []
             cont = 0
+            row.append(_CV)
+            cont += 1
     else:
         data.CV_reclist.append(row)
         row = []
