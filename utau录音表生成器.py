@@ -109,7 +109,8 @@ def phone_check_VC(data,reclist):
                 if phone in data.VC:
                     data.VC.remove(phone)
             elif _reclist[i + 1] in data.CV_V:
-                phone = f'{data.V2_dict[_reclist[i]]} {data.V2_dict[_reclist[i+1]]}'
+                # phone = f'{data.V2_dict[_reclist[i]]} {data.V2_dict[_reclist[i+1]]}'
+                phone = phone = f'{data.V2_dict[_reclist[i]]} {_reclist[i+1]}'
                 if phone not in data.VV_bis:#记录数量
                     data.VV_bis[phone] = 0
                 data.VV_bis[phone] = data.VV_bis[phone] + 1#记录数量
@@ -207,6 +208,7 @@ def Reclist(data, length):
                     phone_V = data.V2_dict[cv]
                     break
             else:
+                #有问题
                 for cv in data.C_dict[phone_C]:
                     # print('1',data.V2_dict[cv])
                     if data.V2_dict[cv] in data.V_sum:
@@ -431,7 +433,7 @@ if __name__ == "__main__":
     start = time.time()
 
     data = CVVCData()
-    cvvc_presamp_read(data,'risku优化版presamp.ini')
+    cvvc_presamp_read(data,'仿vocaloid_presamp.ini')
     length = 8
     Reclist(data,length)
     with open('Reclist.txt', 'w',encoding='utf-8') as file:
