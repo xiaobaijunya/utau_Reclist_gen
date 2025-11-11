@@ -208,7 +208,6 @@ def Reclist(data, length):
                     phone_V = data.V2_dict[cv]
                     break
             else:
-                #有问题
                 for cv in data.C_dict[phone_C]:
                     # print('1',data.V2_dict[cv])
                     if data.V2_dict[cv] in data.V_sum:
