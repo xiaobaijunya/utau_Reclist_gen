@@ -6,7 +6,7 @@ pitch = 60
 
 
 words = []
-with open("record.txt", "r") as f:
+with open("Reclist.txt", "r") as f:
     lines = f.readlines()
     for line in lines:
         line = line.strip()
