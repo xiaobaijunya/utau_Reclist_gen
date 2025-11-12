@@ -1,0 +1,4 @@
+有能力的话可以去github自己调一调代码生一个自己喜欢的录音表
+https://github.com/xiaobaijunya/utau_Reclist_gen
+
+可以用1036935644群的自动生成oto
