@@ -424,6 +424,7 @@ def Rec_oto(data,reclist):
     with open('oto.ini', 'w',encoding='utf-8') as file:
         for rec in oto_rec:
             file.write(rec + '\n')
+    print(f'oto数量：{len(oto_repeat)} ')
 
 
 if __name__ == "__main__":
@@ -432,7 +433,8 @@ if __name__ == "__main__":
     start = time.time()
 
     data = CVVCData()
-    cvvc_presamp_read(data,'仿vocaloid_presamp.ini')
+    # cvvc_presamp_read(data,'仿vocaloid_presamp.ini')
+    cvvc_presamp_read(data,'risku优化版presamp.ini')
     length = 8
     Reclist(data,length)
     with open('Reclist.txt', 'w',encoding='utf-8') as file:
@@ -448,4 +450,5 @@ if __name__ == "__main__":
         reclist = file.readlines()
         # reclist1 = [rec.strip().split('_') for rec in reclist]
         # reclist1 = [[rec for rec in recs if rec != ''] for recs in reclist1]
+    print(f'录音条目：\n总：{len(data.CV_reclist)+len(data.VC_reclist)+len(data.CV_add_reclist)} CVVC:{len(data.CV_reclist)+len(data.VC_reclist)} VR补充：{len(data.CV_add_reclist)}')
     Rec_oto(data,reclist)
