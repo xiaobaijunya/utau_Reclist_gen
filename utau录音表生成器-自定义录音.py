@@ -75,10 +75,11 @@ def cvvc_presamp_read(data, presamps_path):
     data.VV = list(dict.fromkeys(data.VV))
     data.CVsta = list(data.CV)
     data.CVend = list(data.CV)
-    # CVend不生成VR
+    #CVend不生成VR
     for cv_v_item in data.CV_V:
         if cv_v_item in data.CVend:
             data.CVend.remove(cv_v_item)
+
     data.VR = list(data.V)
 
 # 检查电话的函数
@@ -113,8 +114,7 @@ def phone_check_VC(data,reclist):
                 if phone in data.VC:
                     data.VC.remove(phone)
             elif _reclist[i + 1] in data.CV_V:
-                # phone = f'{data.V2_dict[_reclist[i]]} {data.V2_dict[_reclist[i+1]]}'
-                phone = phone = f'{data.V2_dict[_reclist[i]]} {_reclist[i+1]}'
+                phone = f'{data.V2_dict[_reclist[i]]} {_reclist[i + 1]}'
                 if phone not in data.VV_bis:#记录数量
                     data.VV_bis[phone] = 0
                 data.VV_bis[phone] = data.VV_bis[phone] + 1#记录数量
@@ -130,20 +130,20 @@ def Reclist(data, length):
     cont = 0
     print(f'CVsta:{len(data.CVsta)},CVend:{len(data.CVend)},CV:{len(data.CV)},VC:{len(data.VC)},VV:{len(data.VV)}')
     #CV_V读取V列表的CV
-    for _CV in data.CV:
-        if cont < length:
-            row.append(_CV)
-            cont += 1
-        else:
-            data.CV_reclist.append(row)
-            row = []
-            cont = 0
-            row.append(_CV)
-            cont += 1
-    else:
-        data.CV_reclist.append(row)
-        row = []
-        cont = 0
+    # for _CV in data.CV:
+    #     if cont < length:
+    #         row.append(_CV)
+    #         cont += 1
+    #     else:
+    #         data.CV_reclist.append(row)
+    #         row = []
+    #         cont = 0
+    #         row.append(_CV)
+    #         cont += 1
+    # else:
+    #     data.CV_reclist.append(row)
+    #     row = []
+    #     cont = 0
     print('CV列表：')
     print(len(data.CV_reclist),data.CV_reclist)
     phone_check_CV(data,data.CV_reclist)
@@ -154,11 +154,11 @@ def Reclist(data, length):
     start = '0'
     #只保证生成完整的VC
     if start == 'test':
-        data.CVsta = []
+        # data.CVsta = []
         data.CVend = []
         # data.CV = []
         # data.VC = []
-        # data.VV = []
+        data.VV = []
 
     print('VC列表：')
     while len(data.VC)+len(data.VV) !=0:
@@ -278,7 +278,7 @@ def Reclist(data, length):
         #CVend
         for VC in data.VC_VV:
             VC = VC.split(' ')
-            #CVend不再生成V结尾的录音
+            # CVend不再生成V结尾的录音
             if VC[1] in data.CV_V:
                 continue
             if VC[0] == phone_V:
@@ -347,7 +347,7 @@ def Reclist(data, length):
     print(len(data.CV_reclist)+len(data.VC_reclist))
     print(data.sum)
     print(data.CV)
-    # 生成完整-CV和CVR和CV
+    #生成完整-CV和CVR和CV
     print('生成完整-CV和CVR和CV')
     while len(data.CVsta)+len(data.CV)+len(data.CVend) !=0:
         row = []
@@ -440,9 +440,26 @@ if __name__ == "__main__":
     start = time.time()
 
     data = CVVCData()
-    # cvvc_presamp_read(data,'仿vocaloid_presamp.ini')
     cvvc_presamp_read(data,'risku优化版presamp.ini')
     length = 8
+
+    base_reclist = 'base_reclist.txt'
+    #读取基础录音表
+    with open(base_reclist, 'r',encoding='utf-8') as file:
+        # 读取文件的每一行
+        for line in file:
+            # 去除行首尾的空白字符
+            line = line.strip()
+            # 如果行不为空
+            if line:
+                # 以_为分界线分割每个音素
+                phonemes = line.split('_')
+                # 过滤掉空字符串（因为行首可能有_）
+                phonemes = [ph for ph in phonemes if ph]
+                # 将处理后的音素列表添加到data.CV_reclist中
+                data.CV_reclist.append(phonemes)
+
+
     Reclist(data,length)
     with open('Reclist.txt', 'w',encoding='utf-8') as file:
         for reclist in data.CV_reclist:
